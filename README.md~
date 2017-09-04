@@ -1,6 +1,0 @@
-## Inspector Gadget
-
-This tool attempts to find non-deterministic constraint logic gadgets within LLVM IR.  The pursuit of this
-work is to find gadgets within dis-similar source but similar logic.  While functional programming allows
-for more automated proof capabilities the underlying logic of the program.
-
