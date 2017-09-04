@@ -1,0 +1,21 @@
+#ifndef _GADGET_NODE_H_
+#define _GADGET_NODE_H_
+
+#include <set>
+
+class Edge;
+
+#define DEFAULT_INFLOW_CONSTRAINT 2
+
+class Node {
+
+ public:
+  Node( unsigned int constraint ) { inflow_constraint = constraint; }
+  Node() { inflow_constraint = DEFAULT_INFLOW_CONSTRAINT; }
+
+ private:
+  unsigned int inflow_constraint;
+  
+};
+
+#endif
