@@ -3,7 +3,7 @@
 
 #include <string>
 
-Class Operator {
+class Operator {
  public:
   Operator(void) {
     type = UNKNOWN;
