@@ -2,6 +2,8 @@
 set(SOURCES
     Gadgets/Operators.cxx)
 
+add_subdirectory(RangeCoordinator)
+
 add_llvm_loadable_module(Gadgets ${SOURCES})
 add_llvm_Library(LLVMGadgets ${SOURCES})
 
