@@ -8,6 +8,7 @@
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/PatternMatch.h"
 #include "llvm/Pass.h"
+#include "llvm/IR/InstVisitor.h"
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/Scalar.h"
@@ -17,7 +18,7 @@
 
 using namespace llvm;
 
-namespace {
+
 
   // ===============================================
   // RangeHandler class
@@ -59,22 +60,41 @@ namespace {
     
   };
 
+  // ===============================================
+  // RangeInstructionHandler
+  struct BranchHandlerVisitor : public InstVisitor<BranchHandlerVisitor> {
+    void visitBranchInst(BranchInst &I) {
+      outs() << "Branch instruction\n ";
+      I.dump();
+    }
+  };
 
+  
   // ===============================================
   // RangeHandlerPass
-  class RangeHandlerPass : public FunctionPass {
+  struct RangeHandlerPass : public FunctionPass {
 
     static char ID;
 
+    RangeHandlerPass() : FunctionPass(ID) {}
+    
     bool runOnFunction(Function& F) {
       // first get the dominator tree
       auto &DT = getAnalysis<DominatorTreeWrapperPass>().getDomTree();
 
-      const BasicBlock &SB = F.front();
-      const BasicBlock &EB = F.back();
+      BranchHandlerVisitor Visitor;
+      if ( F.isDeclaration() ) {
+	return false;
+      }
 
-      BasicBlockEdge *BE = new BasicBlockEdge(&SB, &EB);
-      
+      if ( F.hasName() ) {
+	outs() << "Visiting " << F.getName() << "\n";
+      } else {
+	outs() << "Unnamed Function \n";
+      }
+
+      Visitor.visit(F);
+      outs() << "\n";
       
       return false;
     }
@@ -82,5 +102,8 @@ namespace {
   };
 
   char RangeHandlerPass::ID = 0;
+
   
-}
+
+
+static RegisterPass<RangeHandlerPass> XX("branch-visit","Branch visitor");
