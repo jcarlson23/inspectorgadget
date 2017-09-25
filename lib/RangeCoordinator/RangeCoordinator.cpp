@@ -15,6 +15,7 @@
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/Cloning.h"
 #include "llvm/IR/Dominators.h"
+#include "llvm/Analysis/MemoryDependenceAnalysis.h"
 
 using namespace llvm;
 
