@@ -14,3 +14,8 @@ researchers would be interested for finding bugs, improper logic, and so forth.
 The 'build.sh' script is useful as a driver to build either a Release and/or Debug versions of the
 libraries and tools.
 
+### Sample
+
+A simple run of the Gadget Pass is:
+
+```opt -load lib/RangeCoordinator/libGadgetRange.so --branch-visit < ../programs/operators_ssa.bc ```

@@ -77,11 +77,37 @@ using namespace llvm;
     static char ID;
 
     RangeHandlerPass() : FunctionPass(ID) {}
+
+    void getAnalysisUsage(AnalysisUsage &AU) const {
+      AU.setPreservesCFG();
+      AU.addRequired<DominatorTreeWrapperPass>();
+    }
     
     bool runOnFunction(Function& F) {
       // first get the dominator tree
       auto &DT = getAnalysis<DominatorTreeWrapperPass>().getDomTree();
 
+      for ( auto &BasicBlock : F ) {
+
+	const BranchInst * BI = dyn_cast<BranchInst>(BasicBlock.getTerminator());
+
+	if ( !BI )
+	  continue;
+	
+	BI->dump();
+
+	if ( !BI || !BI->isConditional())
+	  continue;
+	
+	Value * Condition = BI->getCondition();
+	if ( Condition )
+	  Condition->dump();
+	else {
+	  outs() << "No dependent condition\n";
+	}
+	
+      }
+      
       BranchHandlerVisitor Visitor;
       if ( F.isDeclaration() ) {
 	return false;
