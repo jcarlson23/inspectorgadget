@@ -82,12 +82,14 @@ using namespace llvm;
     void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.setPreservesCFG();
       AU.addRequired<DominatorTreeWrapperPass>();
+      AU.addRequired<MemoryDependenceWrapperPass>();
     }
     
     bool runOnFunction(Function& F) {
       // first get the dominator tree
       auto &DT = getAnalysis<DominatorTreeWrapperPass>().getDomTree();
-
+      auto &MD = getAnalysis<MemoryDependenceWrapperPass>().getMemDep();
+      
       for ( auto &BasicBlock : F ) {
 
 	const BranchInst * BI = dyn_cast<BranchInst>(BasicBlock.getTerminator());
@@ -99,10 +101,14 @@ using namespace llvm;
 
 	if ( !BI || !BI->isConditional())
 	  continue;
-	
+
+	// lookup MemoryDependenceResults to get the appropriate call syntax.
 	Value * Condition = BI->getCondition();
-	if ( Condition )
+	if ( Condition ) {
 	  Condition->dump();
+	  MemDepResult &Res = MD.getDependency(Condition);
+	  
+	}
 	else {
 	  outs() << "No dependent condition\n";
 	}
