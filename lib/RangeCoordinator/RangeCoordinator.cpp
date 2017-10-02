@@ -104,10 +104,11 @@ using namespace llvm;
 
 	// lookup MemoryDependenceResults to get the appropriate call syntax.
 	Value * Condition = BI->getCondition();
-	if ( Condition ) {
-	  Condition->dump();
-	  MemDepResult &Res = MD.getDependency(Condition);
-	  
+	if ( Instruction * I = dyn_cast<Instruction>(Condition) ) {
+	  if ( Condition ) {
+	    Condition->dump();
+	    MemDepResult Res = MD.getDependency(I);
+	  }
 	}
 	else {
 	  outs() << "No dependent condition\n";
