@@ -1,6 +1,7 @@
 
 set(SOURCES
-    Gadgets/Operators.cxx)
+    Gadgets/Operators.cxx
+    Gadgets/JointAnalysis.cxx)
 
 add_subdirectory(RangeCoordinator)
 

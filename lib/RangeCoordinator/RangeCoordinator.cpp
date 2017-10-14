@@ -107,7 +107,20 @@ using namespace llvm;
 	if ( Instruction * I = dyn_cast<Instruction>(Condition) ) {
 	  if ( Condition ) {
 	    Condition->dump();
+
+	    // first we want to look up the dependencies
 	    MemDepResult Res = MD.getDependency(I);
+
+	    // next once we determine them, then we want to see
+	    // if we have some sort of comparison and then
+	    // obtain the ranges for this comparison.
+
+	    // if so we look at the dependency to see what ranges of
+	    // the variable suggest a domain.  This effectively coordinates the
+	    // range of a variable to access a given basic block.
+	    // once this is done, we need to asses what block dependencies
+	    // are disjoint from others.
+	    
 	  }
 	}
 	else {
