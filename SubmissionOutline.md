@@ -24,6 +24,10 @@ The second is to target testing, via fuzzing, or other means to look for flaws. 
 and idnetifying which gadget has been touched via fuzzing.  This is a primary reason for leveraging the LLVM IR form
 of the code as an intermediate.
 
-### Graphical Representation of Gadgets
+#### Graphical Representation of Gadgets
 
-These gadgets are well suited for Graphical representations and investigation.  
+These gadgets are well suited for Graphical representations and investigation.
+
+Some simple graphs of gadgets and interactions that tie to LLVM IR seem best suited here...
+
+### Submit!
