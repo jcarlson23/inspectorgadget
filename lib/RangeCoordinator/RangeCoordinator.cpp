@@ -17,6 +17,8 @@
 #include "llvm/IR/Dominators.h"
 #include "llvm/Analysis/MemoryDependenceAnalysis.h"
 
+#include <iostream>
+
 using namespace llvm;
 
 
@@ -65,8 +67,7 @@ using namespace llvm;
   // RangeInstructionHandler
   struct BranchHandlerVisitor : public InstVisitor<BranchHandlerVisitor> {
     void visitBranchInst(BranchInst &I) {
-      outs() << "Branch instruction\n ";
-      I.dump();
+      // anything we want to do upon a branch instruction, we do it here...
     }
   };
 
@@ -105,16 +106,35 @@ using namespace llvm;
 	// lookup MemoryDependenceResults to get the appropriate call syntax.
 	Value * Condition = BI->getCondition();
 	if ( Instruction * I = dyn_cast<Instruction>(Condition) ) {
+	  
 	  if ( Condition ) {
+	    
+	    std::cerr << "We have a branch condition\n";
 	    Condition->dump();
 
 	    // first we want to look up the dependencies
 	    MemDepResult Res = MD.getDependency(I);
-
+	    I->dump();
+	    
 	    // next once we determine them, then we want to see
 	    // if we have some sort of comparison and then
 	    // obtain the ranges for this comparison.
-
+	    bool isClobber = Res.isClobber();
+	    bool isDef     = Res.isDef();
+	    bool isNonLocal= Res.isNonLocal();
+	    bool isUnknown = Res.isUnknown();
+	    
+	    if ( isClobber ) {
+	      std::cerr << "We have a clobber\n";
+	    } else if ( isDef ) {
+	      std::cerr << "We have a definition\n";
+	    } else if ( isNonLocal ) {
+	      std::cerr << "We have a non-local\n";
+	    } else if ( isUnknown ) {
+	      std::cerr << "We have an unknown\n";
+	    }
+	   
+	    
 	    // if so we look at the dependency to see what ranges of
 	    // the variable suggest a domain.  This effectively coordinates the
 	    // range of a variable to access a given basic block.

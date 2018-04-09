@@ -4,9 +4,10 @@
 
 #########
 # Please change the following home directories of your LLVM builds
+# In my projects folder I have: llvm-5-build/       llvm-5-debug-build/ llvm-5.0.0.src/     llvm-5.0.0.src.tar  
 ########
-LLVMRELEASE=/Users/jaredcarlson/Projects/llvm-4-build
-LLVMDEBUG=/Users/jaredcarlson/Projects/llvm-4-debug-build
+LLVMRELEASE=/Users/jaredcarlson/Projects/llvm-5-build
+LLVMDEBUG=/Users/jaredcarlson/Projects/llvm-5-debug-build
 
 if [[ $1 == 'debug' ]]
 then
@@ -22,7 +23,7 @@ Build=$BuildTY'-build'
 
 rm -rf $Build
 mkdir $Build
-cd $Build
+pushd $Build
 
 if [[ $1 == 'debug' ]]
 then
@@ -32,4 +33,4 @@ cmake ../
 fi
 
 make -j4
-
+popd
