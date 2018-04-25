@@ -25,7 +25,9 @@ A simple run of the Gadget Pass is:
 
 The gadget discovery proess follows these steps.
 
-* Obtain branch edges from the topologically sorted BB's.
+* Obtain branch edges from the topologically sorted BB's.  Note that we'll actually do this
+with SCCS as that makes a little more sense from a theoretical perspective as well as having builtin
+functionality.
 * As a default we color branches with only a single output block as "red" (weight 2).
 * We catalog nodes, looking for the correct number of incoming & outgoing branches.
 * This gives us a first estimate of  CHOICE, AND, OR gadgets.
