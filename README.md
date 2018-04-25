@@ -19,3 +19,14 @@ libraries and tools.
 A simple run of the Gadget Pass is:
 
 ```opt -load lib/RangeCoordinator/libGadgetRange.so --branch-visit < ../programs/operators_ssa.bc ```
+
+
+## Architecture
+
+The gadget discovery proess follows these steps.
+
+* Obtain branch edges from the topologically sorted BB's.
+* As a default we color branches with only a single output block as "red" (weight 2).
+* We catalog nodes, looking for the correct number of incoming & outgoing branches.
+* This gives us a first estimate of  CHOICE, AND, OR gadgets.
+* From here we enter an iterative loop to construct additional gadgets.

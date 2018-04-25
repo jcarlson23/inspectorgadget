@@ -1,0 +1,5 @@
+digraph "CFG for '_ZNSt3__111char_traitsIcE3eofEv' function" {
+	label="CFG for '_ZNSt3__111char_traitsIcE3eofEv' function";
+
+	Node0x7ffe5bd23d40 [shape=record,label="{%0:\l  ret i32 -1\l}"];
+}

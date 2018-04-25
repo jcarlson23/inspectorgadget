@@ -1,0 +1,37 @@
+digraph "CFG for 'main' function" {
+	label="CFG for 'main' function";
+
+	Node0x7ffe5bd0f480 [shape=record,label="{%2:\l  %3 = alloca i32, align 4\l  %4 = alloca i32, align 4\l  %5 = alloca i8**, align 8\l  %6 = alloca i32, align 4\l  %7 = alloca i32, align 4\l  store i32 0, i32* %3, align 4\l  store i32 %0, i32* %4, align 4\l  store i8** %1, i8*** %5, align 8\l  %8 = load i8**, i8*** %5, align 8\l  %9 = getelementptr inbounds i8*, i8** %8, i64 2\l  %10 = load i8*, i8** %9, align 8\l  %11 = call i32 @atoi(i8* %10)\l  store i32 %11, i32* %6, align 4\l  store i32 0, i32* %7, align 4\l  %12 = load i32, i32* %6, align 4\l  %13 = icmp sgt i32 %12, 2\l  br i1 %13, label %14, label %29\l|{<s0>T|<s1>F}}"];
+	Node0x7ffe5bd0f480:s0 -> Node0x7ffe5bd0e110;
+	Node0x7ffe5bd0f480:s1 -> Node0x7ffe5bd0e290;
+	Node0x7ffe5bd0e110 [shape=record,label="{%14:\l\l  %15 = load i32, i32* %6, align 4\l  switch i32 %15, label %25 [\l    i32 3, label %16\l    i32 4, label %19\l    i32 5, label %22\l  ]\l|{<s0>def|<s1>3|<s2>4|<s3>5}}"];
+	Node0x7ffe5bd0e110:s0 -> Node0x7ffe5bd0e210;
+	Node0x7ffe5bd0e110:s1 -> Node0x7ffe5bd0e150;
+	Node0x7ffe5bd0e110:s2 -> Node0x7ffe5bd0e190;
+	Node0x7ffe5bd0e110:s3 -> Node0x7ffe5bd0e1d0;
+	Node0x7ffe5bd0e150 [shape=record,label="{%16:\l\l  %17 = load i32, i32* %7, align 4\l  %18 = add nsw i32 %17, 2\l  store i32 %18, i32* %7, align 4\l  br label %28\l}"];
+	Node0x7ffe5bd0e150 -> Node0x7ffe5bd0e250;
+	Node0x7ffe5bd0e190 [shape=record,label="{%19:\l\l  %20 = load i32, i32* %7, align 4\l  %21 = add nsw i32 %20, 3\l  store i32 %21, i32* %7, align 4\l  br label %28\l}"];
+	Node0x7ffe5bd0e190 -> Node0x7ffe5bd0e250;
+	Node0x7ffe5bd0e1d0 [shape=record,label="{%22:\l\l  %23 = load i32, i32* %7, align 4\l  %24 = add nsw i32 %23, 6\l  store i32 %24, i32* %7, align 4\l  br label %25\l}"];
+	Node0x7ffe5bd0e1d0 -> Node0x7ffe5bd0e210;
+	Node0x7ffe5bd0e210 [shape=record,label="{%25:\l\l  %26 = load i32, i32* %6, align 4\l  %27 = mul nsw i32 2, %26\l  store i32 %27, i32* %7, align 4\l  br label %28\l}"];
+	Node0x7ffe5bd0e210 -> Node0x7ffe5bd0e250;
+	Node0x7ffe5bd0e250 [shape=record,label="{%28:\l\l  br label %40\l}"];
+	Node0x7ffe5bd0e250 -> Node0x7ffe5bd0e410;
+	Node0x7ffe5bd0e290 [shape=record,label="{%29:\l\l  %30 = load i32, i32* %6, align 4\l  %31 = icmp slt i32 %30, 0\l  br i1 %31, label %32, label %33\l|{<s0>T|<s1>F}}"];
+	Node0x7ffe5bd0e290:s0 -> Node0x7ffe5bd0e2d0;
+	Node0x7ffe5bd0e290:s1 -> Node0x7ffe5bd0e310;
+	Node0x7ffe5bd0e2d0 [shape=record,label="{%32:\l\l  store i32 0, i32* %7, align 4\l  br label %39\l}"];
+	Node0x7ffe5bd0e2d0 -> Node0x7ffe5bd0e3d0;
+	Node0x7ffe5bd0e310 [shape=record,label="{%33:\l\l  %34 = load i32, i32* %6, align 4\l  %35 = icmp eq i32 %34, 1\l  br i1 %35, label %36, label %38\l|{<s0>T|<s1>F}}"];
+	Node0x7ffe5bd0e310:s0 -> Node0x7ffe5bd0e350;
+	Node0x7ffe5bd0e310:s1 -> Node0x7ffe5bd0e390;
+	Node0x7ffe5bd0e350 [shape=record,label="{%36:\l\l  %37 = load i32, i32* %6, align 4\l  store i32 %37, i32* %7, align 4\l  br label %38\l}"];
+	Node0x7ffe5bd0e350 -> Node0x7ffe5bd0e390;
+	Node0x7ffe5bd0e390 [shape=record,label="{%38:\l\l  br label %39\l}"];
+	Node0x7ffe5bd0e390 -> Node0x7ffe5bd0e3d0;
+	Node0x7ffe5bd0e3d0 [shape=record,label="{%39:\l\l  br label %40\l}"];
+	Node0x7ffe5bd0e3d0 -> Node0x7ffe5bd0e410;
+	Node0x7ffe5bd0e410 [shape=record,label="{%40:\l\l  %41 = call dereferenceable(160) %\"class.std::__1::basic_ostream\"*\l... @_ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc(%\"class.std\l...::__1::basic_ostream\"* dereferenceable(160) @_ZNSt3__14coutE, i8*\l... getelementptr inbounds ([19 x i8], [19 x i8]* @.str, i32 0, i32 0))\l  %42 = load i32, i32* %7, align 4\l  %43 = call dereferenceable(160) %\"class.std::__1::basic_ostream\"*\l... @_ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEElsEi(%\"class.std::__1::basic_o\l...stream\"* %41, i32 %42)\l  %44 = call dereferenceable(160) %\"class.std::__1::basic_ostream\"*\l... @_ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc(%\"class.std\l...::__1::basic_ostream\"* dereferenceable(160) %43, i8* getelementptr inbounds\l... ([2 x i8], [2 x i8]* @.str.1, i32 0, i32 0))\l  ret i32 0\l}"];
+}
