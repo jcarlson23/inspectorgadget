@@ -34,6 +34,17 @@
 using namespace llvm;
 
 namespace {
+
+  // structures to contain captured analysis
+  struct NodeSCC {
+    Function * F;
+    std::vector<BasicBlock*> block;
+  };
+  
+  struct CFGSCCAnalysis {
+    std::vector<NodeSCC*> SCC;
+  };
+    
   struct CFGSCC : public FunctionPass {
     static char ID;  // Pass identification, replacement for typeid
     CFGSCC() : FunctionPass(ID) {}
@@ -73,15 +84,27 @@ Z("print-callgraph-sccs", "Print SCCs of the Call Graph");
 
 bool CFGSCC::runOnFunction(Function &F) {
   unsigned sccNum = 0;
+
+  ::CFGSCCAnalysis analysis;
+  
   errs() << "SCCs for Function " << F.getName() << " in PostOrder:";
   for (scc_iterator<Function*> SCCI = scc_begin(&F); !SCCI.isAtEnd(); ++SCCI) {
+    ::NodeSCC * nodeScc = new NodeSCC;
+    nodeScc->F = &F;
+    
     const std::vector<BasicBlock *> &nextSCC = *SCCI;
+    nodeScc->block = nextSCC;
+    
     errs() << "\nSCC #" << ++sccNum << " : ";
     for (std::vector<BasicBlock*>::const_iterator I = nextSCC.begin(),
            E = nextSCC.end(); I != E; ++I)
       errs() << (*I)->getName() << ", ";
     if (nextSCC.size() == 1 && SCCI.hasLoop())
       errs() << " (Has self-loop).";
+
+    // capture the analysis to present to downline analysis.
+    analysis.SCC.push_back(nodeScc);
+    
   }
   errs() << "\n";
 
@@ -94,6 +117,7 @@ bool CallGraphSCC::runOnModule(Module &M) {
   CallGraph &CG = getAnalysis<CallGraphWrapperPass>().getCallGraph();
   unsigned sccNum = 0;
   errs() << "SCCs for the program in PostOrder:";
+  
   for (scc_iterator<CallGraph*> SCCI = scc_begin(&CG); !SCCI.isAtEnd();
        ++SCCI) {
     const std::vector<CallGraphNode*> &nextSCC = *SCCI;
