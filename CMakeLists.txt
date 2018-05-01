@@ -18,7 +18,9 @@ else()
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include
-	            ${CMAKE_CURRENT_BINARY_DIR}/include)
+	            ${CMAKE_CURRENT_BINARY_DIR}/include
+		    /usr/local/Cellar/nlohmann_json/3.1.2/include
+		    )
 
 add_subdirectory(lib)
 add_subdirectory(tools)

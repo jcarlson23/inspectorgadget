@@ -31,7 +31,12 @@
 #include "llvm/IR/Module.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/raw_ostream.h"
+
+// JSON support
+#include <nlohmann/json.hpp>
+
 using namespace llvm;
+using json = nlohmann::json;
 
 namespace {
 
@@ -55,8 +60,17 @@ namespace {
     void getAnalysisUsage(AnalysisUsage &AU) const override {
       AU.setPreservesAll();
     }
+
+    bool write( const std::string& filename, CFGSCCAnalysis& Analysis ) {
+      json js;
+      // now we iterate through our
+
+      return true;
+    }
+    
   };
 
+ 
   struct CallGraphSCC : public ModulePass {
     static char ID;  // Pass identification, replacement for typeid
     CallGraphSCC() : ModulePass(ID) {}
